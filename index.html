@@ -139,6 +139,16 @@ nav{padding-bottom:3px}
 .nav-strip .scrub-top{font-size:clamp(9px,2.8vw,11px)!important;min-height:16px!important}
 .nav-strip #scrub{height:19px!important}
 @media(max-width:350px){.nav-strip #prev,.nav-strip #next{flex-basis:34px!important}}
+
+/* Referral: explanation and confirmation before opening WhatsApp. */
+.referral-card {width:min(100%,440px);padding:23px;border:2px solid #e73b4c;box-shadow:0 26px 75px #000c}
+.referral-kicker {color:#ffb9bf;font-size:12px;font-weight:900;letter-spacing:.14em;margin-bottom:12px}
+.referral-card h2 {font-size:clamp(23px,5.6vw,29px);margin-bottom:15px}
+.referral-card p {font-size:clamp(15px,3.7vw,17px);line-height:1.48;margin-bottom:15px}
+.referral-actions {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:9px;margin-top:20px}
+.referral-actions button,.referral-actions a {min-height:50px;display:flex;align-items:center;justify-content:center;text-align:center;padding:9px 11px;border-radius:11px;font-size:clamp(13px,3.6vw,16px);font-weight:850;text-decoration:none;line-height:1.17}
+#referralCancel {background:#e7edf4;color:#162336;border:1px solid #cdd8e4}
+#referralWhatsApp {background:linear-gradient(180deg,#20c866,#088647);border:1px solid #64e69d;color:#fff;box-shadow:0 2px 8px #0007}
 </style></head><body>
 <main id="stage" aria-label="R and J catalogue pages. Swipe to turn, pinch to zoom.">
 <div id="book">
@@ -160,12 +170,24 @@ nav{padding-bottom:3px}
   <a class="contact-button call" href="tel:+447843229624" aria-label="Call Sam on 07843 229624"><span class="contact-icon" aria-hidden="true">☎</span><span>Call Sam</span></a>
   <a class="contact-button whatsapp" href="https://wa.me/447843229624?text=Hi%20Sam%2C%20I%27ve%20been%20looking%20through%20the%20R%26J%20Trade%20Catalogue." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Sam on 07843 229624"><span class="contact-icon" aria-hidden="true">◉</span><span>WhatsApp</span></a>
   <a class="contact-button email" href="mailto:sam.brooks@rjbh.co.uk?subject=R%26J%20Trade%20Catalogue%20Enquiry" aria-label="Email Sam at sam.brooks@rjbh.co.uk"><span class="contact-icon" aria-hidden="true">✉</span><span>Email</span></a>
-  <a id="referMate" class="contact-button whatsapp" href="https://wa.me/447843229624?text=Hi%20Sam%2C%20I%27d%20like%20to%20refer%20a%20mate%20to%20R%26J%20Builders%20Hardware." target="_blank" rel="noopener noreferrer" aria-label="Refer a mate to Sam Brooks via WhatsApp"><span class="contact-icon" aria-hidden="true">↗</span><span>Refer a Mate</span></a>
+  <button id="referMate" class="contact-button whatsapp" type="button" aria-haspopup="dialog" aria-controls="referralDialog" aria-label="Learn how to refer a mate to Sam Brooks"><span class="contact-icon" aria-hidden="true">↗</span><span>Refer a Mate</span></button>
   <button id="saveCatalogue" class="contact-button save" type="button" aria-label="Save R and J Catalogue to your phone"><span class="contact-icon" aria-hidden="true">⇩</span><span>Save Catalogue</span></button>
 </footer>
 <div class="backdrop" id="picker" role="dialog" aria-modal="true" aria-labelledby="pickerTitle" hidden><div class="dialog"><h2 id="pickerTitle">Go straight to any page</h2><p>Choose a page number. The catalogue opens there instantly.</p><form class="pickline" id="jumpForm"><input id="jump" type="number" min="1" max="118" value="1" inputmode="numeric" aria-label="Enter page number" required><button type="submit">GO ›</button></form><h3>Quick page stops</h3><div id="quickGrid" class="quickgrid"></div><div class="dialog-foot"><button id="closePicker" type="button">Close</button></div></div></div>
 <div class="backdrop" id="toolDialog" role="dialog" aria-modal="true" aria-labelledby="toolsTitle" hidden><div class="dialog"><h2 id="toolsTitle">Reading tools</h2><p>Keep the catalogue full-size. Your navigation tools stay here until you need them.</p><h3>Page turn style</h3><div class="optionrow"><button id="fast" type="button" aria-pressed="false">⚡ Instant turns</button><button id="animated" type="button" aria-pressed="true">↶ Rolling pages</button></div><h3>Zoom</h3><div class="optionrow"><button id="minus" type="button">−</button><button id="read" type="button">2× READ</button><button id="plus" type="button">+</button><button id="fit" type="button">Fit page</button></div><div class="dialog-foot"><button id="closeTools" type="button">Done</button></div></div></div>
 <div class="backdrop" id="promoDialog" role="dialog" aria-modal="true" aria-labelledby="promoTitle" hidden><div class="dialog gift-modal"><div class="offer-kicker">R&amp;J · XR WOODSCREW BUCKETS · PAGE 59</div><h2 id="promoTitle">The XR Woodscrews Trade Offer</h2><div class="offer-old">Was <s>£16.50</s> per tub</div><div class="offer-price">£14.99 <small>per tub</small></div><div class="offer-ribbon">EVERY 12 TUBS · CHOOSE ONE FREE</div><div class="gift-item"><b>OPTION 1</b> — 2 extra tubs FREE</div><div class="gift-item"><b>OPTION 2</b> — Code 65265 · 780 × 300 × 500 mm aluminium worktop FREE</div><div class="gift-item"><b>OPTION 3</b> — 3 bottles of quality Italian wine FREE</div><p style="margin-top:12px">Choose whichever free gift suits you best with every 12 tubs.</p><div class="dialog-foot"><button id="closePromo" type="button">Back to page 59</button></div></div></div>
+<div class="backdrop" id="referralDialog" role="dialog" aria-modal="true" aria-labelledby="referralTitle" aria-describedby="referralInfo" hidden>
+  <section class="dialog referral-card">
+    <div class="referral-kicker">R&amp;J · KENT &amp; MEDWAY</div>
+    <h2 id="referralTitle">Know a mate in the trade?</h2>
+    <p id="referralInfo">Good tradespeople deserve a reliable supplier. If you've got a mate who might like R&amp;J Builders Hardware, introduce them to Sam!</p>
+    <p>Tap below to open a ready-made WhatsApp message to Sam. You can personalise it before pressing Send. Only share your mate's contact details with their permission.</p>
+    <div class="referral-actions">
+      <button id="referralCancel" type="button">Not now</button>
+      <a id="referralWhatsApp" href="https://wa.me/447843229624?text=Hi%20Sam%2C%20I%27d%20like%20to%20introduce%20a%20mate%20in%20the%20trade%20to%20R%26J%20Builders%20Hardware." target="_blank" rel="noopener noreferrer">Refer via WhatsApp ↗</a>
+    </div>
+  </section>
+</div>
 <div id="saveNotice" class="save-notice" role="status" aria-live="polite" hidden></div>
 <div id="installDialog" class="install-sheet" role="dialog" aria-modal="true" aria-labelledby="installHeading" hidden>
  <section class="install-card">
@@ -413,6 +435,32 @@ function bindHoldToTurn(id,delta){
 }
 bindHoldToTurn('prev',-1);
 bindHoldToTurn('next',1);
+
+/* Refer-a-Mate confirmation. No external navigation before customer confirms. */
+const referralDialog = $('referralDialog');
+const referralTrigger = $('referMate');
+const referralCancel = $('referralCancel');
+const referralWhatsApp = $('referralWhatsApp');
+function closeReferral() {
+ referralDialog.hidden = true;
+ referralTrigger.focus({preventScroll:true});
+}
+referralTrigger.addEventListener('click',()=>{
+ referralDialog.hidden = false;
+ referralCancel.focus({preventScroll:true});
+});
+referralCancel.addEventListener('click',closeReferral);
+referralWhatsApp.addEventListener('click',()=>{referralDialog.hidden=true});
+referralDialog.addEventListener('click',e=>{if(e.target===referralDialog)closeReferral()});
+referralDialog.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){e.preventDefault();closeReferral();return}
+ if(e.key==='Tab'){
+  const items=[referralCancel,referralWhatsApp];
+  if(e.shiftKey&&document.activeElement===items[0]){e.preventDefault();items[1].focus()}
+  else if(!e.shiftKey&&document.activeElement===items[1]){e.preventDefault();items[0].focus()}
+ }
+});
+
 window.addEventListener('blur',()=>activeHoldStops.forEach(stop=>stop()));
 document.addEventListener('visibilitychange',()=>{if(document.hidden)activeHoldStops.forEach(stop=>stop())});
 let scrubLastPaint=0,scrubTimer=null,scrubHold=null,scrubWanted=null;
