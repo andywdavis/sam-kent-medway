@@ -1,0 +1,31 @@
+{
+  "name": "R&J Builders Hardware \u2014 Kent & Medway Division",
+  "short_name": "R&J Kent",
+  "description": "118-page trade catalogue for Kent & Medway with Sam Brooks. The 8 Kent scenic headers alternate every 8 pages through page 118.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1420",
+  "theme_color": "#101923",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
