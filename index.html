@@ -1063,7 +1063,7 @@ async function saveCatalogue(){
 }
 // Referral references: one difficult-to-guess code per recommendation.
 // This is manual attribution via a quoted code, NOT server-side tracking or automatic rewards.
-const referralUrl='https://andywdavis.github.io/sam-kent-medway/';
+const referralUrl=location.origin+location.pathname;
 const referDialog=document.getElementById('referDialog');
 const referNameInput=document.getElementById('referName');
 const referCodeDisplay=document.getElementById('referCode');
@@ -2694,7 +2694,7 @@ window.RJ_QUOTE_DIVISION={"id":"sam","label":"Kent & Medway","rep":"Sam","wa":"4
   function startNew(confirmFirst=true){if(confirmFirst&&items.length&&!confirm('Start a new quote? The current list will be cleared.'))return;items=[];window.RJXR59?.resetRewards?.();persist();render();query('rjq-review').hidden=true;query('rjq-overlay').hidden=false}
   function handedOff(){save(backupKey,{items:items.map(i=>({...i})),time:Date.now()});items=[];window.RJXR59?.resetRewards?.();persist();query('rjq-review').hidden=true;query('rjq-overlay').hidden=true;query('rjq-undo').hidden=false;}
   function send(mode){if(!items.length)return;const body=text();if(mode==='copy'){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(body).then(()=>query('rjq-reviewstatus').textContent='Copied. Your list is still here until you finish sending.');else query('rjq-reviewstatus').textContent='Copy the quotation text above.';return}
-   if(mode==='whatsapp'){window.open('https://wa.me/'+cfg.wa+'?text='+encodeURIComponent(body),'_blank','noopener');handedOff()}
+   if(mode==='whatsapp'){window.open('https://wa.me/'+cfg.wa+'?text='+encodeURIComponent(body),'_blank','noopener');query('rjq-reviewstatus').textContent='Your quote remains saved here until you choose New Quote.'}
    if(mode==='email'){location.href='mailto:'+cfg.email+'?subject='+encodeURIComponent('R&J '+cfg.label+' quote request')+'&body='+encodeURIComponent(body);handedOff()}
   }
 
@@ -3467,7 +3467,81 @@ new MutationObserver(sync).observe(counter,{childList:true,characterData:true,su
  byId('rjlead-sms').addEventListener('click',()=>send('sms'));
  dialog.addEventListener('click',(e)=>{if(e.target===dialog)closeForm()});
  document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&!dialog.hidden)closeForm()});
- try{if(localStorage.getItem(key)!=='1')setTimeout(()=>{if(dialog.hidden&&prompt.hidden)prompt.hidden=false},1800)}catch(_){setTimeout(()=>{if(dialog.hidden)prompt.hidden=false},1800)}
+ /* Callback remains available on demand; avoid competing invitations. */
+})();
+</script>
+
+<style id="rj-division-family-v1">
+#rj-family-invite[hidden],#rj-family-dialog[hidden]{display:none!important}
+#rj-family-invite{position:fixed;right:10px;bottom:calc(109px + env(safe-area-inset-bottom));z-index:60;max-width:min(330px,calc(100vw - 20px));padding:11px 12px;border-radius:13px;background:linear-gradient(140deg,#223a50,#101e30);border:1px solid #e9c66d;color:#fff;box-shadow:0 8px 28px #000a;font:600 12px/1.3 system-ui,Arial,sans-serif}
+#rj-family-invite strong{display:block;margin:0 20px 5px 0;color:#ffe49c;font-size:15px;line-height:1.2}
+#rj-family-invite p{margin:3px 0 8px}
+#rj-family-invite button{font:850 12px system-ui;min-height:31px;border:1px solid #b7cadc;border-radius:7px;padding:5px 9px}
+#rj-family-invite .rjfamily-yes{color:#192638;background:linear-gradient(#ffeaab,#e2b955);border-color:#ffe5a0}
+#rj-family-invite .rjfamily-close{position:absolute;right:4px;top:2px;color:#fff;background:transparent;border:0;font-size:21px}
+#rj-family-dialog{position:fixed;inset:0;z-index:200010;background:#000c;padding:12px;display:flex;justify-content:center;align-items:center;box-sizing:border-box}
+#rj-family-dialog .rjfamily-card{width:min(100%,410px);max-height:90dvh;overflow:auto;box-sizing:border-box;padding:19px;border-radius:16px;border:1px solid #d6bc75;background:linear-gradient(140deg,#263b52,#101d2e);color:#fff;box-shadow:0 20px 55px #000b;font:500 14px/1.4 system-ui,Arial,sans-serif}
+#rj-family-dialog h2{font-size:22px;line-height:1.12;margin:0 0 10px;color:#ffe5a1}
+#rj-family-dialog p{margin:0 0 10px}
+#rj-family-dialog label{display:block;margin:10px 0 5px;font-weight:800}
+#rj-family-dialog input{display:block;width:100%;box-sizing:border-box;padding:12px;border-radius:9px;border:1px solid #afc0d0;background:#fff;color:#172438;font:600 17px system-ui}
+#rj-family-dialog small{display:block;color:#d7e3ed;line-height:1.4;margin:11px 0}
+#rj-family-dialog .rjfamily-actions{display:flex;gap:8px;margin-top:12px}
+#rj-family-dialog button{min-height:45px;padding:9px;border-radius:9px;border:1px solid #9fc0d7;font:850 13px system-ui}
+#rj-family-dialog .rjfamily-submit{background:linear-gradient(#1ec56c,#08773e);color:white;flex:1;border-color:#65e8a1}
+#rj-family-dialog .rjfamily-cancel{background:#304961;color:white}
+#rj-family-dialog .rjfamily-error{min-height:15px;color:#ffe48e;font-size:12px;font-weight:700}
+@media(min-width:950px){.nav-strip{max-width:740px!important}#contactBar{max-width:740px;margin-left:auto;margin-right:auto}#rj-family-invite{bottom:95px}}
+</style>
+
+<script id="rj-division-family-logic-v1">
+(()=>{'use strict';
+ const cfg=window.RJ_QUOTE_DIVISION||{};
+ if(!cfg.wa||!cfg.rep||!cfg.label)return;
+ const k='rj_family_prompt_v1_'+cfg.id;
+ const invite=document.createElement('aside');invite.id='rj-family-invite';invite.hidden=true;
+ invite.setAttribute('aria-label','Optional trade family invitation');
+ const dialog=document.createElement('div');dialog.id='rj-family-dialog';dialog.hidden=true;
+ const personalLabel=cfg.rep+"'s "+cfg.label+' Trade Family';
+ invite.innerHTML='<button type="button" class="rjfamily-close" aria-label="Dismiss invitation">×</button><strong></strong><p>Free trade updates and offers, straight from your local R&amp;J representative.</p><button type="button" class="rjfamily-yes">YES, JOIN MY TRADE FAMILY</button>';
+ dialog.innerHTML='<form class="rjfamily-card" novalidate><h2></h2><p>Just your name and mobile number. No account or password.</p><label for="rjfamily-name">Your name</label><input id="rjfamily-name" autocomplete="name" maxlength="70" required placeholder="Your name"><label for="rjfamily-phone">Mobile number</label><input id="rjfamily-phone" type="tel" autocomplete="tel" maxlength="25" required placeholder="07..." inputmode="tel"><small>By sending this request in WhatsApp, I agree to receive occasional trade offers and updates from my R&amp;J representative. I can opt out at any time. Nothing is collected until I send the message.</small><div class="rjfamily-error" role="alert"></div><div class="rjfamily-actions"><button type="button" class="rjfamily-cancel">NOT NOW</button><button type="submit" class="rjfamily-submit">JOIN VIA WHATSAPP</button></div></form>';
+ invite.querySelector('strong').textContent='Join '+personalLabel;
+ dialog.querySelector('h2').textContent='Join '+personalLabel;
+ document.body.append(invite,dialog);
+ const hide=()=>{invite.hidden=true;dialog.hidden=true;try{localStorage.setItem(k,'1')}catch(_){}};
+ invite.querySelector('.rjfamily-close').addEventListener('click',hide);
+ invite.querySelector('.rjfamily-yes').addEventListener('click',()=>{invite.hidden=true;dialog.hidden=false;dialog.querySelector('input').focus()});
+ dialog.querySelector('.rjfamily-cancel').addEventListener('click',hide);
+ dialog.addEventListener('click',e=>{if(e.target===dialog)hide()});
+ dialog.querySelector('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=dialog.querySelector('#rjfamily-name').value.replace(/\s+/g,' ').trim();
+  const mobile=dialog.querySelector('#rjfamily-phone').value.trim();
+  const norm=mobile.replace(/[\s()-.]/g,'');
+  const error=dialog.querySelector('.rjfamily-error');
+  if(!name){error.textContent='Please enter your name.';return;}
+  if(!/^(?:07\d{9}|\+447\d{9}|447\d{9})$/.test(norm)){error.textContent='Please enter a UK mobile starting 07 or +447.';return;}
+  error.textContent='';
+  const msg='Hi '+cfg.rep+', please add me to your R&J '+cfg.label+' Trade Family for trade updates and offers.\n\nName: '+name+'\nMobile: '+mobile+'\n\nI consent to occasional trade updates and understand I can opt out at any time.';
+  const target='https://wa.me/'+cfg.wa+'?text='+encodeURIComponent(msg);
+  hide();
+  window.location.href=target;
+ });
+ let checked=false;
+ function maybeOffer(){
+  if(checked)return;checked=true;
+  try{if(localStorage.getItem(k)==='1')return;}catch(_){}
+  setTimeout(()=>{
+   if(!dialog.hidden)return;
+   const blocker=['daveWelcome','maxWelcome','rjq-overlay','rjq-review','rjlead-dialog','rj-search-mask'].some(id=>{
+    const el=document.getElementById(id);
+    return el&&!el.hidden&&getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden';
+   });
+   if(!blocker)invite.hidden=false;
+  },2600);
+ }
+ // Start after customers actually open or browse, not over the opening screen.
+ document.addEventListener('click',e=>{if(e.target.closest('#stage,#daveWelcomeOpen,#maxWelcomeOpen,#maxWelcome,#saveCatalogue,#openPicker'))maybeOffer()},true);
 })();
 </script>
 </body></html>
