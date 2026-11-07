@@ -1,96 +1,59 @@
-/* R&J catalogue launch and search update. Existing index.html is never replaced. */
-const RJ_PATCH_VERSION="SAM_KENT_EXISTING_ICON_LAUNCH_RECOVERY-20261102";
-const RJ_PATCH_SCRIPT="(()=>{'use strict';\nif(window.__RJ_SAFE_SEARCH_WELCOME_2026)return;window.__RJ_SAFE_SEARCH_WELCOME_2026=true;\nconst repFallback=\"Sam\", divisionFallback=\"Kent & Surrounding Division\";\nfunction init(){\n if(!document.body)return;\n const css=document.createElement('style');css.id='rj-safe-search-welcome-style';css.textContent=`\n#rj-intro-screen{position:fixed;inset:0;z-index:2147483640;display:flex;align-items:center;justify-content:center;background:#081421;color:white;overflow-y:auto;font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;box-sizing:border-box;padding:15px;overscroll-behavior:contain}\n#rj-intro-screen[hidden],#rj-search-panel[hidden]{display:none!important}\n#rj-intro-screen * ,#rj-search-panel *{box-sizing:border-box}\n#rj-intro-screen .rj-landing-card{width:min(100%,620px);margin:auto;border:2px solid #d1ab52;border-radius:17px;background:linear-gradient(150deg,#182d42,#0a111b);padding:16px;box-shadow:0 15px 50px #0009;text-align:center}\n#rj-intro-screen .rj-brand{font-size:13px;letter-spacing:.1em;font-weight:900;color:#edcb6f}\n#rj-intro-screen h1{font-size:clamp(22px,6vw,37px);line-height:1.14;margin:10px 0 4px;color:#fff}\n#rj-intro-screen .rj-division{color:#dce8f5;font-size:14px;font-weight:700;margin:6px 0 12px}\n#rj-intro-screen .rj-cover{display:block;margin:10px auto 14px;max-height:47dvh;max-width:100%;width:auto;border-radius:5px;object-fit:contain;box-shadow:0 7px 24px #0009}\n#rj-intro-screen .rj-cover:not([src]){display:none}\n#rj-intro-screen .rj-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px auto 6px}\n#rj-intro-screen button{border:0;border-radius:10px;padding:16px 8px;font-size:clamp(13px,3.5vw,17px);font-weight:900;cursor:pointer;touch-action:manipulation}\n#rj-intro-screen .rj-open{background:linear-gradient(#fbe499,#d9a833);color:#191b20}\n#rj-intro-screen .rj-save{background:#ebf0f7;color:#11202e}\n#rj-intro-screen .rj-foot{font-size:12px;color:#d5deea;margin:7px 0}\n#rj-search-open{font:900 12px/1.15 system-ui,Arial,sans-serif;padding:8px 12px;border:2px solid #f3c656;border-radius:11px;color:#fff;background:linear-gradient(#365773,#12253c);cursor:pointer;text-align:center;touch-action:manipulation;letter-spacing:.025em}\n#rj-search-open.floating{position:fixed;z-index:800;bottom:90px;right:8px;box-shadow:0 4px 12px #0008}\n\n/* COMPACT 2-COLUMN FOOTER – only dimensions, no changes to code/quotes or handlers. */\nnav.rj-safe-nav-row{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:4px 6px!important;align-items:center!important;padding:3px 6px max(3px,env(safe-area-inset-bottom))!important}\nnav.rj-safe-nav-row>#rj-search-open,nav.rj-safe-nav-row>#rjq-guide{box-sizing:border-box!important;min-width:0!important;width:100%!important;max-width:none!important;height:54px!important;min-height:54px!important;max-height:54px!important;margin:0!important;padding:3px 4px!important;border-radius:10px!important;overflow:hidden!important;align-self:stretch!important;touch-action:manipulation!important}\nnav.rj-safe-nav-row>#rj-search-open{grid-column:1!important;grid-row:1!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;font:900 clamp(10px,2.95vw,12px)/1.15 system-ui,Arial,sans-serif!important;border:2px solid #e9c365!important}\nnav.rj-safe-nav-row>#rjq-guide{grid-column:2!important;grid-row:1!important;display:grid!important;grid-template-columns:23px minmax(0,1fr)!important;grid-template-rows:auto auto!important;align-content:center!important;align-items:center!important;justify-items:center!important;gap:1px 2px!important;text-align:center!important;font:850 clamp(9px,2.7vw,11px)/1.12 system-ui,Arial,sans-serif!important;white-space:normal!important}\nnav.rj-safe-nav-row>#rjq-guide>span:first-child{grid-column:1!important;grid-row:1/span 2!important;font-size:19px!important;line-height:1!important}\nnav.rj-safe-nav-row>#rjq-guide>strong{grid-column:2!important;grid-row:1!important;font-weight:950!important;color:#ffdc77!important;white-space:normal!important}\nnav.rj-safe-nav-row>#rjq-guide>span:last-child{grid-column:2!important;grid-row:2!important;white-space:normal!important}\nnav.rj-safe-nav-row>.nav-strip{grid-column:1/-1!important;grid-row:2!important;width:100%!important;min-width:0!important}\n@media(max-width:360px){nav.rj-safe-nav-row{column-gap:4px!important;padding-left:4px!important;padding-right:4px!important}nav.rj-safe-nav-row>#rjq-guide{grid-template-columns:20px minmax(0,1fr)!important;font-size:9px!important}nav.rj-safe-nav-row>#rjq-guide>span:first-child{font-size:17px!important}}\n\n#rj-search-panel{position:fixed;inset:0;z-index:2147483641;display:flex;align-items:center;justify-content:center;background:#020713df;padding:12px;font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#fff}\n#rj-search-panel .rj-search-card{width:min(100%,650px);max-height:91dvh;display:flex;flex-direction:column;overflow:hidden;border:2px solid #dbb861;border-radius:16px;background:linear-gradient(160deg,#203b55,#071827);padding:13px}\n#rj-search-panel .rj-search-header{display:flex;align-items:center;justify-content:space-between;gap:8px}\n#rj-search-panel h2{font-size:clamp(15px,4vw,21px);margin:0 0 8px}\n#rj-search-panel input{width:100%;min-height:44px;padding:11px;border:1px solid #ccdaea;border-radius:8px;background:#fff;color:#111;font-size:16px}\n#rj-search-panel .rj-close{border:0;border-radius:6px;background:#fff;color:#111;font-weight:900;font-size:23px;width:40px;height:39px;flex:0 0 auto}\n#rj-search-panel .rj-search-jump{display:flex;gap:8px;margin:8px 0;align-items:center}\n#rj-search-panel .rj-search-jump label{font-size:12px;font-weight:900;white-space:nowrap}\n#rj-search-panel .rj-search-jump input{min-width:60px;flex:1}\n#rj-search-panel .rj-search-jump button{font-weight:900;background:#f1c864;color:#1a1a1a;border:0;border-radius:7px;padding:12px}\n#rj-search-panel .rj-search-status{font-size:12px;color:#d3ddea;margin:6px 0}\n#rj-search-panel .rj-search-results{overflow-y:auto;min-height:60px;flex:1}\n#rj-search-panel .rj-item{display:flex;justify-content:space-between;gap:8px;width:100%;background:#f2f5f8;color:#101e2b;text-align:left;border:0;border-radius:7px;padding:10px;margin:0 0 6px;font-size:13px;cursor:pointer}\n#rj-search-panel .rj-item b{font-size:15px;display:block}\n#rj-search-panel .rj-item small{display:block;font-size:12px;margin-top:2px;line-height:1.3}\n#rj-search-panel .rj-item .page{flex:none;align-self:center;font-weight:900;color:#134a74}\n@media(max-width:375px){#rj-intro-screen{padding:7px}#rj-intro-screen .rj-landing-card{padding:10px}#rj-intro-screen .rj-cover{max-height:39dvh}}\n`;document.head.append(css);\n const cfg=window.RJ_QUOTE_DIVISION||{};\n const rep=cfg.rep||repFallback,division=cfg.label||divisionFallback;\n function launchWelcome(){\n  // Preserve a pre-existing approved introduction and stop timers from hiding it.\n  const old=document.getElementById('daveWelcome');\n  if(old){let opened=false;old.hidden=false;\n   old.addEventListener('click',event=>{if(event.target.closest('#daveWelcomeOpen,#daveWelcomeSave'))opened=true;},true);\n   new MutationObserver(()=>{if(!opened&&old.hidden)old.hidden=false}).observe(old,{attributes:true,attributeFilter:['hidden']});\n   return;\n  }\n  const screen=document.createElement('section');screen.id='rj-intro-screen';screen.setAttribute('aria-label','Open or save your R&J trade catalogue');\n  screen.innerHTML='<div class=\"rj-landing-card\"><div class=\"rj-brand\">R&amp;J BUILDERS HARDWARE</div><h1>YOUR INTERACTIVE<br>TRADE CATALOGUE!</h1><p class=\"rj-division\"></p><img class=\"rj-cover\" alt=\"Trade catalogue front cover\"><div class=\"rj-actions\"><button class=\"rj-open\" type=\"button\">📖 OPEN CATALOGUE</button><button class=\"rj-save\" type=\"button\">📲 SAVE CATALOGUE</button></div><p class=\"rj-foot\">Browse • Tap a code • Build your quote • Send</p></div>';\n  screen.querySelector('.rj-division').textContent=rep+' · '+division;\n  const cover=screen.querySelector('.rj-cover');cover.removeAttribute('src');\n  const source=document.getElementById('mainImg')||document.querySelector('#book img');\n  function syncCover(){if(!source)return;const src=source.getAttribute('src');if(src&&src!==cover.getAttribute('src')&&!(src==='undefined')){if(!cover.hasAttribute('src'))cover.src=src;}}\n  if(source){source.addEventListener('load',syncCover,{once:true});new MutationObserver(syncCover).observe(source,{attributes:true,attributeFilter:['src']});syncCover();}\n  const dismiss=()=>{screen.hidden=true};\n  screen.querySelector('.rj-open').addEventListener('click',dismiss);\n  screen.querySelector('.rj-save').addEventListener('click',()=>{dismiss();const existing=document.getElementById('saveCatalogue');if(existing)existing.click();else alert('To save: open your browser menu and choose Add to Home screen.');});\n  document.body.append(screen);\n }\n function launchSearch(){\n  if(document.getElementById('rj-index-search')||document.getElementById('rj-search-open'))return;\n  const nav=document.querySelector('nav[aria-label=\"Catalogue page navigation\"]');\n  const strip=nav&&nav.querySelector('.nav-strip');\n  const btn=document.createElement('button');btn.type='button';btn.id='rj-search-open';btn.innerHTML='🔎 INDEX &amp; PRODUCT<br>SEARCH';\n  if(strip&&nav){nav.insertBefore(btn,strip);if(nav.querySelector('#rjq-guide'))nav.classList.add('rj-safe-nav-row');}else{btn.classList.add('floating');document.body.append(btn);}\n  const modal=document.createElement('div');modal.id='rj-search-panel';modal.hidden=true;modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');\n  modal.innerHTML='<div class=\"rj-search-card\"><div class=\"rj-search-header\"><h2>🔎 INDEX &amp; PRODUCT SEARCH</h2><button class=\"rj-close\" type=\"button\" aria-label=\"Close\">×</button></div><input class=\"rj-query\" type=\"search\" placeholder=\"Enter product code or description\" aria-label=\"Search catalogue\"><form class=\"rj-search-jump\"><label>GO TO PAGE</label><input class=\"rj-jump\" inputmode=\"numeric\" type=\"number\" min=\"1\" max=\"118\" placeholder=\"1–118\"><button type=\"submit\">GO ›</button></form><div class=\"rj-search-status\"></div><div class=\"rj-search-results\"></div></div>';\n  document.body.append(modal);\n  const query=modal.querySelector('.rj-query'),status=modal.querySelector('.rj-search-status'),result=modal.querySelector('.rj-search-results');\n  let entries=[];\n  function loadEntries(){\n   const maps=window.RJ_QUOTE_MAPS||{}; const config=window.RJ_QUOTE_DIVISION||{};\n   let selected=maps[config.id];\n   if(!selected){for(const alias of [\"sam\",'max','sam','kent','merseyside'])if(maps[alias]){selected=maps[alias];break}}\n   if(!selected){const all=Object.values(maps);selected=all.find(x=>x&&typeof x==='object'&&!Array.isArray(x))||{}};\n   const records=[];const seen=new Set();\n   for(const [page,items] of Object.entries(selected||{})){if(!Array.isArray(items))continue;\n    for(const item of items){const code=String(item.code||'').trim(),desc=String(item.description||item.title||'').trim();if(!code&&!desc)continue;\n     const k=page+'|'+code+'|'+desc;if(seen.has(k))continue;seen.add(k);\n     records.push({page,code,desc,key:(code+' '+desc+' '+page).toLowerCase()});}}\n   entries=records;\n  }\n  function pageLabel(p){const n=Number(p);return ({2.5:'2B',3.5:'3B',9.5:'9B',70.5:'70B',109.5:'109B'})[n]||String(p)}\n  function gotoPage(p,chooser){const n=Number(p);if(!Number.isFinite(n)||n<1||n>118)return;\n   modal.hidden=true;const scrub=document.getElementById('scrub');\n   if(typeof window.direct==='function'){window.direct(n)}else if(scrub){scrub.value=String(n);scrub.dispatchEvent(new Event('change',{bubbles:true}));scrub.dispatchEvent(new Event('input',{bubbles:true}));}\n   else{const text=document.getElementById('count');if(text)text.textContent='PAGE '+n+' / 118';}\n   if(chooser){const guide=document.getElementById('rjq-guide');if(guide)setTimeout(()=>guide.click(),125)}\n  }\n  function render(){result.replaceChildren();const q=query.value.toLowerCase().trim();\n   if(!q){status.textContent=entries.length+' indexed products. Search by code or name, or enter a page number.';return;}\n   const matches=entries.filter(item=>item.key.includes(q));\n   status.textContent=matches.length+' matching products — tap one to view and choose';\n   matches.slice(0,70).forEach(item=>{const row=document.createElement('button');row.type='button';row.className='rj-item';\n     const desc=document.createElement('span');const code=document.createElement('b');code.textContent=item.code||'Catalogue product';\n     const note=document.createElement('small');note.textContent=item.desc||'See page';desc.append(code,note);\n     const num=document.createElement('span');num.className='page';num.textContent='PAGE '+pageLabel(item.page);row.append(desc,num);\n     row.addEventListener('click',()=>gotoPage(item.page,true));result.append(row);});\n   if(matches.length>70){const p=document.createElement('p');p.textContent='Showing the first 70; narrow your search.';result.append(p)}\n   if(matches.length===0){const p=document.createElement('p');p.textContent='No matching indexed products. Try another term or go to a page.';result.append(p)}\n  }\n  btn.addEventListener('click',()=>{loadEntries();query.value='';render();modal.hidden=false;query.focus();});\n  modal.querySelector('.rj-close').addEventListener('click',()=>{modal.hidden=true;btn.focus()});\n  modal.addEventListener('click',event=>{if(event.target===modal)modal.hidden=true});\n  query.addEventListener('input',render);\n  modal.querySelector('form').addEventListener('submit',event=>{event.preventDefault();gotoPage(modal.querySelector('.rj-jump').value,false)});\n  modal.addEventListener('keydown',event=>{if(event.key==='Escape'){modal.hidden=true;btn.focus()}});\n }\n launchSearch();launchWelcome();\n // The service worker itself is the only file being replaced. Recheck it on launch.\n if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.update().catch(()=>{})).catch(()=>{});\n}\nif(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();\n})();";
-// Sam Kent & Medway existing-install rescue. Preserve search/quotes; fix navigation only.
-// Service workers are scoped to /sam-kent-medway/, so this does not alter other divisions.
-const RJ_LAUNCH_CACHE = 'rj-sam-kent-launch-fallback-v1';
+/* Sam Kent & Medway — safe navigation fix, 7 Nov 2026.
+   Keeps the existing catalogue and quote links untouched.
+   Does not decode or rewrite the 19 MB HTML during navigation.
+   Keeps an offline copy of the catalogue opening document when possible.
+   Scoped to /sam-kent-medway/; no other division is affected.
+*/
+'use strict';
+const RJ_SHELL_CACHE = 'rj-sam-kent-shell-v2-20261107';
+const RJ_OLD_SHELL_CACHE = 'rj-sam-kent-launch-fallback-v1';
 const RJ_SCOPE = new URL(self.registration.scope);
-const RJ_INDEX = new URL('index.html', RJ_SCOPE).href;
-const RJ_HOME = RJ_SCOPE.href;
+const RJ_ENTRY = new URL('index.html', RJ_SCOPE).href;
 
-async function rjGetHtml(url, maxMs=8000) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), maxMs);
-  try {
-    const response = await fetch(url, {cache: 'no-store', signal: controller.signal});
-    if(!response.ok || !(response.headers.get('content-type') || '').toLowerCase().includes('text/html')) {
-      return null;
-    }
-    return response;
-  } catch (_) {return null;}
-  finally {clearTimeout(timer);}
+self.addEventListener('install', event => event.waitUntil(self.skipWaiting()));
+self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
+
+function disconnectedPage() {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R&J Kent & Medway</title><style>html,body{margin:0;min-height:100%;background:#0c1624;color:white;font:16px system-ui,Arial,sans-serif}main{max-width:480px;margin:22vh auto 0;padding:22px;text-align:center}h1{font-size:23px}button{padding:14px 20px;border:0;border-radius:10px;background:#e5bd5c;color:#141414;font-weight:900;font-size:18px}</style></head><body><main><h1>R&amp;J Kent &amp; Medway Catalogue</h1><p>Connection interrupted. Your catalogue and quotes have not been deleted.</p><button onclick="location.reload()">TRY AGAIN</button></main></body></html>`,
+    {status:503,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}});
 }
 
-async function rjSaveShell(response) {
-  try {
-    // Raw unmodified HTML is stored. No quote/session data is removed or cached.
-    const cache = await caches.open(RJ_LAUNCH_CACHE);
-    await cache.put(RJ_INDEX, response.clone());
-  } catch (_) { /* Quota/cache errors must never break an online launch. */ }
-}
-
-async function rjGetCachedShell() {
-  try { return await (await caches.open(RJ_LAUNCH_CACHE)).match(RJ_INDEX); }
-  catch (_) {return null;}
-}
-
-function rjFriendlyOffline() {
-  // This is a temporary emergency view, not a replacement for the catalogue.
-  const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R&J Kent & Medway</title><style>html,body{margin:0;min-height:100%;background:#0c1624;color:white;font:16px system-ui,Arial,sans-serif}main{max-width:480px;margin:22vh auto 0;padding:22px;text-align:center}h1{font-size:23px}button{padding:14px 20px;border:0;border-radius:10px;background:#e5bd5c;color:#141414;font-weight:900;font-size:18px}</style></head><body><main><h1>R&amp;J Kent &amp; Medway Catalogue</h1><p>Connection interrupted. Your catalogue and saved quotes have not been deleted.</p><button onclick="location.reload()">RETRY CATALOGUE</button></main><script>addEventListener("online",()=>location.reload());setInterval(()=>{if(navigator.onLine)location.reload()},15000)</script></body></html>';
-  return new Response(html,{status:200,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}});
-}
-
-async function rjApplySearch(response) {
-  // Preserve the previously approved search button, open/save and quote behaviour.
-  try {
-    const html = await response.text();
-    if (html.includes('id="rj-safe-search-welcome-2026"')) {
-      return new Response(html,{status:200,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}});
-    }
-    const injected = '<script id="rj-safe-search-welcome-2026">' + RJ_PATCH_SCRIPT + '</' + 'script>';
-    const amended = /<\/head>/i.test(html) ? html.replace(/<\/head>/i, injected+'</head>') :
-                    /<\/body>/i.test(html) ? html.replace(/<\/body>/i, injected+'</body>') : html + injected;
-    const headers = new Headers(response.headers);
-    for (const name of ['content-length','content-encoding','etag','last-modified','content-security-policy']) headers.delete(name);
-    headers.set('cache-control','no-store');
-    headers.set('content-type','text/html; charset=utf-8');
-    return new Response(amended,{status:200,headers});
-  } catch (_) { return rjFriendlyOffline(); }
-}
-
-async function rjHandleNavigation(request) {
-  // First choice: always the CURRENT live page, never a stale cache.
-  let response = await rjGetHtml(request);
-  // Installed apps can launch an old/deep URL. Retry the known catalogue entry.
-  if (!response) response = await rjGetHtml(RJ_INDEX, 4000);
-  if (!response) response = await rjGetHtml(RJ_HOME, 4000);
-  if (response) {
-    // Do not make launch wait for cache IO; clone before reading for injection.
-    const rawForCache=response.clone();
-    const modified=await rjApplySearch(response);
-    // Persist the rescue copy before the service worker is allowed to stop.
-    // Errors are ignored so caching never stops an online catalogue.
-    await rjSaveShell(rawForCache);
-    return modified;
-  }
-  // If the network is unreachable, use the last successful catalogue HTML.
-  const cached=await rjGetCachedShell();
-  if (cached) return rjApplySearch(cached);
-  return rjFriendlyOffline();
-}
-
-self.addEventListener('install', event => {
-  event.waitUntil(self.skipWaiting());
-});
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
-  // Intentionally do not delete Cache Storage or localStorage/IndexedDB. Other
-  // divisions share this GitHub origin, and quote data must be preserved.
-});
 self.addEventListener('fetch', event => {
-  const request = event.request;
-  if (request.mode !== 'navigate' || request.method !== 'GET') return;
-  const url = new URL(request.url);
+  const req = event.request;
+  if (req.method !== 'GET' || req.mode !== 'navigate') return;
+  const url = new URL(req.url);
   if (url.origin !== RJ_SCOPE.origin || !url.pathname.startsWith(RJ_SCOPE.pathname)) return;
-  event.respondWith(rjHandleNavigation(request));
+
+  event.respondWith((async () => {
+    // Inspect only the cache index, not the cached 19 MB response body.
+    let shellCache = null;
+    let saved = null;
+    try {
+      shellCache = await caches.open(RJ_SHELL_CACHE);
+      saved = await shellCache.match(RJ_ENTRY);
+    } catch (_) { /* Private browsing or device quotas may block caching. */ }
+
+    try {
+      // Pass the browser's navigation straight through. Keep #rjppq/#rjppp links intact.
+      const live = await fetch(req);
+      if (live.ok) {
+        if (!saved && shellCache && (live.headers.get('content-type') || '').includes('text/html')) {
+          // One-time offline shell backup, off the critical path, never on every visit.
+          const copy = live.clone();
+          event.waitUntil(shellCache.put(RJ_ENTRY, copy).catch(() => {}));
+        }
+        return live;
+      }
+      // Return genuine errors rather than silently replacing a broken page.
+      if (live.status !== 404 && live.status !== 503 && live.status !== 502 && live.status !== 504) return live;
+    } catch (_) { /* Network unavailable: use last saved catalogue. */ }
+
+    if (saved) return saved;
+    try {
+      const previousCache = await caches.open(RJ_OLD_SHELL_CACHE);
+      const previous = await previousCache.match(RJ_ENTRY);
+      if (previous) return previous;
+    } catch (_) {}
+    return disconnectedPage();
+  })());
 });
