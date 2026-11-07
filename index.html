@@ -534,7 +534,146 @@ html.rjpp-quote-mode{background:#eef1f5}
 .rjpp-error{padding:25px 15px;text-align:center;font-size:15px;line-height:1.5}
 @media(max-width:390px){.rjpp-line{gap:5px;padding:9px 7px}.rjpp-price{min-width:91px}.rjpp-price input{width:90px}.rjpp-qty button{width:27px}.rjpp-desc{font-size:12px}}
 @media print{#rjpp-quote-portal{position:static;overflow:visible}.rjpp-actions,.rjpp-qty button,.rjpp-price input{display:none!important}.rjpp-wrap{padding:0;box-shadow:none}}
-</style></head><body>
+</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<script id="rj-safe-search-welcome-2026">
+(()=>{'use strict';
+if(window.__RJ_SAFE_SEARCH_WELCOME_2026)return;window.__RJ_SAFE_SEARCH_WELCOME_2026=true;
+const repFallback="Sam", divisionFallback="Kent & Surrounding Division";
+function init(){
+ if(!document.body)return;
+ const css=document.createElement('style');css.id='rj-safe-search-welcome-style';css.textContent=`
+#rj-intro-screen{position:fixed;inset:0;z-index:2147483640;display:flex;align-items:center;justify-content:center;background:#081421;color:white;overflow-y:auto;font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;box-sizing:border-box;padding:15px;overscroll-behavior:contain}
+#rj-intro-screen[hidden],#rj-search-panel[hidden]{display:none!important}
+#rj-intro-screen * ,#rj-search-panel *{box-sizing:border-box}
+#rj-intro-screen .rj-landing-card{width:min(100%,620px);margin:auto;border:2px solid #d1ab52;border-radius:17px;background:linear-gradient(150deg,#182d42,#0a111b);padding:16px;box-shadow:0 15px 50px #0009;text-align:center}
+#rj-intro-screen .rj-brand{font-size:13px;letter-spacing:.1em;font-weight:900;color:#edcb6f}
+#rj-intro-screen h1{font-size:clamp(22px,6vw,37px);line-height:1.14;margin:10px 0 4px;color:#fff}
+#rj-intro-screen .rj-division{color:#dce8f5;font-size:14px;font-weight:700;margin:6px 0 12px}
+#rj-intro-screen .rj-cover{display:block;margin:10px auto 14px;max-height:47dvh;max-width:100%;width:auto;border-radius:5px;object-fit:contain;box-shadow:0 7px 24px #0009}
+#rj-intro-screen .rj-cover:not([src]){display:none}
+#rj-intro-screen .rj-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px auto 6px}
+#rj-intro-screen button{border:0;border-radius:10px;padding:16px 8px;font-size:clamp(13px,3.5vw,17px);font-weight:900;cursor:pointer;touch-action:manipulation}
+#rj-intro-screen .rj-open{background:linear-gradient(#fbe499,#d9a833);color:#191b20}
+#rj-intro-screen .rj-save{background:#ebf0f7;color:#11202e}
+#rj-intro-screen .rj-foot{font-size:12px;color:#d5deea;margin:7px 0}
+#rj-search-open{font:900 12px/1.15 system-ui,Arial,sans-serif;padding:8px 12px;border:2px solid #f3c656;border-radius:11px;color:#fff;background:linear-gradient(#365773,#12253c);cursor:pointer;text-align:center;touch-action:manipulation;letter-spacing:.025em}
+#rj-search-open.floating{position:fixed;z-index:800;bottom:90px;right:8px;box-shadow:0 4px 12px #0008}
+
+/* COMPACT 2-COLUMN FOOTER – only dimensions, no changes to code/quotes or handlers. */
+nav.rj-safe-nav-row{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:4px 6px!important;align-items:center!important;padding:3px 6px max(3px,env(safe-area-inset-bottom))!important}
+nav.rj-safe-nav-row>#rj-search-open,nav.rj-safe-nav-row>#rjq-guide{box-sizing:border-box!important;min-width:0!important;width:100%!important;max-width:none!important;height:54px!important;min-height:54px!important;max-height:54px!important;margin:0!important;padding:3px 4px!important;border-radius:10px!important;overflow:hidden!important;align-self:stretch!important;touch-action:manipulation!important}
+nav.rj-safe-nav-row>#rj-search-open{grid-column:1!important;grid-row:1!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;font:900 clamp(10px,2.95vw,12px)/1.15 system-ui,Arial,sans-serif!important;border:2px solid #e9c365!important}
+nav.rj-safe-nav-row>#rjq-guide{grid-column:2!important;grid-row:1!important;display:grid!important;grid-template-columns:23px minmax(0,1fr)!important;grid-template-rows:auto auto!important;align-content:center!important;align-items:center!important;justify-items:center!important;gap:1px 2px!important;text-align:center!important;font:850 clamp(9px,2.7vw,11px)/1.12 system-ui,Arial,sans-serif!important;white-space:normal!important}
+nav.rj-safe-nav-row>#rjq-guide>span:first-child{grid-column:1!important;grid-row:1/span 2!important;font-size:19px!important;line-height:1!important}
+nav.rj-safe-nav-row>#rjq-guide>strong{grid-column:2!important;grid-row:1!important;font-weight:950!important;color:#ffdc77!important;white-space:normal!important}
+nav.rj-safe-nav-row>#rjq-guide>span:last-child{grid-column:2!important;grid-row:2!important;white-space:normal!important}
+nav.rj-safe-nav-row>.nav-strip{grid-column:1/-1!important;grid-row:2!important;width:100%!important;min-width:0!important}
+@media(max-width:360px){nav.rj-safe-nav-row{column-gap:4px!important;padding-left:4px!important;padding-right:4px!important}nav.rj-safe-nav-row>#rjq-guide{grid-template-columns:20px minmax(0,1fr)!important;font-size:9px!important}nav.rj-safe-nav-row>#rjq-guide>span:first-child{font-size:17px!important}}
+
+#rj-search-panel{position:fixed;inset:0;z-index:2147483641;display:flex;align-items:center;justify-content:center;background:#020713df;padding:12px;font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#fff}
+#rj-search-panel .rj-search-card{width:min(100%,650px);max-height:91dvh;display:flex;flex-direction:column;overflow:hidden;border:2px solid #dbb861;border-radius:16px;background:linear-gradient(160deg,#203b55,#071827);padding:13px}
+#rj-search-panel .rj-search-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#rj-search-panel h2{font-size:clamp(15px,4vw,21px);margin:0 0 8px}
+#rj-search-panel input{width:100%;min-height:44px;padding:11px;border:1px solid #ccdaea;border-radius:8px;background:#fff;color:#111;font-size:16px}
+#rj-search-panel .rj-close{border:0;border-radius:6px;background:#fff;color:#111;font-weight:900;font-size:23px;width:40px;height:39px;flex:0 0 auto}
+#rj-search-panel .rj-search-jump{display:flex;gap:8px;margin:8px 0;align-items:center}
+#rj-search-panel .rj-search-jump label{font-size:12px;font-weight:900;white-space:nowrap}
+#rj-search-panel .rj-search-jump input{min-width:60px;flex:1}
+#rj-search-panel .rj-search-jump button{font-weight:900;background:#f1c864;color:#1a1a1a;border:0;border-radius:7px;padding:12px}
+#rj-search-panel .rj-search-status{font-size:12px;color:#d3ddea;margin:6px 0}
+#rj-search-panel .rj-search-results{overflow-y:auto;min-height:60px;flex:1}
+#rj-search-panel .rj-item{display:flex;justify-content:space-between;gap:8px;width:100%;background:#f2f5f8;color:#101e2b;text-align:left;border:0;border-radius:7px;padding:10px;margin:0 0 6px;font-size:13px;cursor:pointer}
+#rj-search-panel .rj-item b{font-size:15px;display:block}
+#rj-search-panel .rj-item small{display:block;font-size:12px;margin-top:2px;line-height:1.3}
+#rj-search-panel .rj-item .page{flex:none;align-self:center;font-weight:900;color:#134a74}
+@media(max-width:375px){#rj-intro-screen{padding:7px}#rj-intro-screen .rj-landing-card{padding:10px}#rj-intro-screen .rj-cover{max-height:39dvh}}
+`;document.head.append(css);
+ const cfg=window.RJ_QUOTE_DIVISION||{};
+ const rep=cfg.rep||repFallback,division=cfg.label||divisionFallback;
+ function launchWelcome(){
+  // Preserve a pre-existing approved introduction and stop timers from hiding it.
+  const old=document.getElementById('daveWelcome');
+  if(old){let opened=false;old.hidden=false;
+   old.addEventListener('click',event=>{if(event.target.closest('#daveWelcomeOpen,#daveWelcomeSave'))opened=true;},true);
+   new MutationObserver(()=>{if(!opened&&old.hidden)old.hidden=false}).observe(old,{attributes:true,attributeFilter:['hidden']});
+   return;
+  }
+  const screen=document.createElement('section');screen.id='rj-intro-screen';screen.setAttribute('aria-label','Open or save your R&J trade catalogue');
+  screen.innerHTML='<div class="rj-landing-card"><div class="rj-brand">R&amp;J BUILDERS HARDWARE</div><h1>YOUR INTERACTIVE<br>TRADE CATALOGUE!</h1><p class="rj-division"></p><img class="rj-cover" alt="Trade catalogue front cover"><div class="rj-actions"><button class="rj-open" type="button">📖 OPEN CATALOGUE</button><button class="rj-save" type="button">📲 SAVE CATALOGUE</button></div><p class="rj-foot">Browse • Tap a code • Build your quote • Send</p></div>';
+  screen.querySelector('.rj-division').textContent=rep+' · '+division;
+  const cover=screen.querySelector('.rj-cover');cover.removeAttribute('src');
+  const source=document.getElementById('mainImg')||document.querySelector('#book img');
+  function syncCover(){if(!source)return;const src=source.getAttribute('src');if(src&&src!==cover.getAttribute('src')&&!(src==='undefined')){if(!cover.hasAttribute('src'))cover.src=src;}}
+  if(source){source.addEventListener('load',syncCover,{once:true});new MutationObserver(syncCover).observe(source,{attributes:true,attributeFilter:['src']});syncCover();}
+  const dismiss=()=>{screen.hidden=true};
+  screen.querySelector('.rj-open').addEventListener('click',dismiss);
+  screen.querySelector('.rj-save').addEventListener('click',()=>{dismiss();const existing=document.getElementById('saveCatalogue');if(existing)existing.click();else alert('To save: open your browser menu and choose Add to Home screen.');});
+  document.body.append(screen);
+ }
+ function launchSearch(){
+  if(document.getElementById('rj-index-search')||document.getElementById('rj-search-open'))return;
+  const nav=document.querySelector('nav[aria-label="Catalogue page navigation"]');
+  const strip=nav&&nav.querySelector('.nav-strip');
+  const btn=document.createElement('button');btn.type='button';btn.id='rj-search-open';btn.innerHTML='🔎 INDEX &amp; PRODUCT<br>SEARCH';
+  if(strip&&nav){nav.insertBefore(btn,strip);if(nav.querySelector('#rjq-guide'))nav.classList.add('rj-safe-nav-row');}else{btn.classList.add('floating');document.body.append(btn);}
+  const modal=document.createElement('div');modal.id='rj-search-panel';modal.hidden=true;modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');
+  modal.innerHTML='<div class="rj-search-card"><div class="rj-search-header"><h2>🔎 INDEX &amp; PRODUCT SEARCH</h2><button class="rj-close" type="button" aria-label="Close">×</button></div><input class="rj-query" type="search" placeholder="Enter product code or description" aria-label="Search catalogue"><form class="rj-search-jump"><label>GO TO PAGE</label><input class="rj-jump" inputmode="numeric" type="number" min="1" max="118" placeholder="1–118"><button type="submit">GO ›</button></form><div class="rj-search-status"></div><div class="rj-search-results"></div></div>';
+  document.body.append(modal);
+  const query=modal.querySelector('.rj-query'),status=modal.querySelector('.rj-search-status'),result=modal.querySelector('.rj-search-results');
+  let entries=[];
+  function loadEntries(){
+   const maps=window.RJ_QUOTE_MAPS||{}; const config=window.RJ_QUOTE_DIVISION||{};
+   let selected=maps[config.id];
+   if(!selected){for(const alias of ["sam",'max','sam','kent','merseyside'])if(maps[alias]){selected=maps[alias];break}}
+   if(!selected){const all=Object.values(maps);selected=all.find(x=>x&&typeof x==='object'&&!Array.isArray(x))||{}};
+   const records=[];const seen=new Set();
+   for(const [page,items] of Object.entries(selected||{})){if(!Array.isArray(items))continue;
+    for(const item of items){const code=String(item.code||'').trim(),desc=String(item.description||item.title||'').trim();if(!code&&!desc)continue;
+     const k=page+'|'+code+'|'+desc;if(seen.has(k))continue;seen.add(k);
+     records.push({page,code,desc,key:(code+' '+desc+' '+page).toLowerCase()});}}
+   entries=records;
+  }
+  function pageLabel(p){const n=Number(p);return ({2.5:'2B',3.5:'3B',9.5:'9B',70.5:'70B',109.5:'109B'})[n]||String(p)}
+  function gotoPage(p,chooser){const n=Number(p);if(!Number.isFinite(n)||n<1||n>118)return;
+   modal.hidden=true;const scrub=document.getElementById('scrub');
+   if(typeof window.direct==='function'){window.direct(n)}else if(scrub){scrub.value=String(n);scrub.dispatchEvent(new Event('change',{bubbles:true}));scrub.dispatchEvent(new Event('input',{bubbles:true}));}
+   else{const text=document.getElementById('count');if(text)text.textContent='PAGE '+n+' / 118';}
+   if(chooser){const guide=document.getElementById('rjq-guide');if(guide)setTimeout(()=>guide.click(),125)}
+  }
+  function render(){result.replaceChildren();const q=query.value.toLowerCase().trim();
+   if(!q){status.textContent=entries.length+' indexed products. Search by code or name, or enter a page number.';return;}
+   const matches=entries.filter(item=>item.key.includes(q));
+   status.textContent=matches.length+' matching products — tap one to view and choose';
+   matches.slice(0,70).forEach(item=>{const row=document.createElement('button');row.type='button';row.className='rj-item';
+     const desc=document.createElement('span');const code=document.createElement('b');code.textContent=item.code||'Catalogue product';
+     const note=document.createElement('small');note.textContent=item.desc||'See page';desc.append(code,note);
+     const num=document.createElement('span');num.className='page';num.textContent='PAGE '+pageLabel(item.page);row.append(desc,num);
+     row.addEventListener('click',()=>gotoPage(item.page,true));result.append(row);});
+   if(matches.length>70){const p=document.createElement('p');p.textContent='Showing the first 70; narrow your search.';result.append(p)}
+   if(matches.length===0){const p=document.createElement('p');p.textContent='No matching indexed products. Try another term or go to a page.';result.append(p)}
+  }
+  btn.addEventListener('click',()=>{loadEntries();query.value='';render();modal.hidden=false;query.focus();});
+  modal.querySelector('.rj-close').addEventListener('click',()=>{modal.hidden=true;btn.focus()});
+  modal.addEventListener('click',event=>{if(event.target===modal)modal.hidden=true});
+  query.addEventListener('input',render);
+  modal.querySelector('form').addEventListener('submit',event=>{event.preventDefault();gotoPage(modal.querySelector('.rj-jump').value,false)});
+  modal.addEventListener('keydown',event=>{if(event.key==='Escape'){modal.hidden=true;btn.focus()}});
+ }
+ launchSearch();launchWelcome();
+ // The service worker itself is the only file being replaced. Recheck it on launch.
+ if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.update().catch(()=>{})).catch(()=>{});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+</head><body>
+<div id="sam-launch-loading" role="status" aria-live="polite" style="position:fixed;inset:0;z-index:2147483625;background:#0b1625;color:#f8e8bf;display:flex;align-items:center;justify-content:center;font:900 19px/1.5 system-ui,Arial,sans-serif;text-align:center;padding:28px">
+ <div><div style="font-size:25px;color:#fff;letter-spacing:.02em">R&amp;J BUILDERS HARDWARE</div><div style="margin:16px 0 7px;color:#f4d580">SAM · KENT &amp; MEDWAY</div><div id="sam-load-text" style="font-size:16px;font-weight:600">Opening your catalogue…</div><button id="sam-load-retry" type="button" style="display:none;margin:20px auto 0;padding:14px 23px;background:#e6c06a;border:0;border-radius:10px;color:#162030;font:900 16px system-ui;cursor:pointer" onclick="location.reload()">TRY AGAIN</button></div>
+</div>
+<style id="sam-load-cover-quote">html.rjpp-quote-mode body > #sam-launch-loading{display:flex!important}</style>
+<script id="sam-loading-guard">(()=>{'use strict';const loading=document.getElementById('sam-launch-loading');if(!loading)return;function check(){const quote=!!document.querySelector('#rjpp-quote-portal');const ready=!!document.getElementById('mainImg')?.getAttribute('src');if(quote||ready||!!document.getElementById('rj-intro-screen')){loading.remove();return;}document.getElementById('sam-load-text').textContent='Catalogue not responding. Please try again.';document.getElementById('sam-load-retry').style.display='block'}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',check,{once:true});else check();setTimeout(()=>{if(loading.isConnected)check()},16000);})();</script>
+
 <main id="stage" aria-label="R and J catalogue pages. Swipe to turn, pinch to zoom. Press and hold arrows to flip quickly.">
 <div id="book">
 <div id="nextPage" class="sheet"><img id="targetImg" alt="Next catalogue page"></div>
